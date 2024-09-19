@@ -23,18 +23,24 @@ using TTHDotNetCore.ConsoleApp;
 // f5 (debugging)
 // f9 (break point)
 // f10 (one line enter)
+// enter Ctrl+a Ctrl+d ( format )
 
 // max connection = 100
 // 100 = 99
 
-AdoDotNetExample adoDotNetExample= new AdoDotNetExample();
+//AdoDotNetExample adoDotNetExample= new AdoDotNetExample();
 //adoDotNetExample.Read();
 //adoDotNetExample.Edit();
 //adoDotNetExample.Update();
 //adoDotNetExample.LogicalDelete();
-adoDotNetExample.ManualDelete();
+//adoDotNetExample.ManualDelete();
 
-        
+
+DapperExample dapperExample = new DapperExample();
+//dapperExample.Create("Title", "Author", "Content");
+//dapperExample.Update();
+//dapperExample.LogicalDelete();
+dapperExample.ManualDelete();
 
 
 
