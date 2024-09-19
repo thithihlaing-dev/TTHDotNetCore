@@ -38,9 +38,11 @@ using TTHDotNetCore.ConsoleApp;
 
 DapperExample dapperExample = new DapperExample();
 //dapperExample.Create("Title", "Author", "Content");
+//dapperExample.Edit(1);
+//dapperExample.Edit(10);
 //dapperExample.Update();
 //dapperExample.LogicalDelete();
-dapperExample.ManualDelete();
+//dapperExample.ManualDelete();
 
 
 

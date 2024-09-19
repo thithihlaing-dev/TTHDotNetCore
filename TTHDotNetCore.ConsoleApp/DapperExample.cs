@@ -68,11 +68,50 @@ namespace TTHDotNetCore.ConsoleApp
 
         }
 
+        public void Edit(int id)
+        {
+            using (IDbConnection db = new SqlConnection(_connectionString))
+            {
+                string query = "select * from tbl_blog where DeleteFlag = 0  and BlogId=@BlogId";
+                var item = db.Query<BlogDataModel>(query, new BlogDataModel
+                {
+                    BlogId = id
+                }).FirstOrDefault();
+                //if (item == null)
+                if (item is null)
+                {
+                    Console.WriteLine("No Data Found");
+                    return;
+                }
+
+                Console.WriteLine(item.BlogId);
+                Console.WriteLine(item.BlogTitle);
+                Console.WriteLine(item.BlogAuthor);
+                Console.WriteLine(item.BlogContent);
+            }
+        }
+
         public void Update()
         {
             Console.WriteLine("BlogId :");
             string id = Console.ReadLine();
             int blogId = int.Parse(id);
+            using (IDbConnection db = new SqlConnection(_connectionString))
+            {
+                string query = "select * from tbl_blog where DeleteFlag = 0  and BlogId=@BlogId";
+                var item = db.Query<BlogDataModel>(query, new BlogDataModel
+                {
+                    BlogId = blogId
+                }).FirstOrDefault();
+                if (item is null)
+                {
+                    Console.WriteLine("No Data Found");
+                    return;
+                }
+
+             
+            }
+
 
             Console.WriteLine("Blog Title");
             string title = Console.ReadLine();
@@ -99,7 +138,7 @@ namespace TTHDotNetCore.ConsoleApp
                     BlogAuthor = author,
                     BlogContent = content,
                 } );
-                Console.WriteLine(result == 1 ? "Updating Successful." : "Updating Fail");                
+                Console.WriteLine(result == 1 ? "Updating Successful." : "Updating Fail");                 
             }
 
         }
@@ -108,7 +147,22 @@ namespace TTHDotNetCore.ConsoleApp
         {
             Console.WriteLine("BlogId :");
             string id = Console.ReadLine();
-            int blogId = int.Parse(id);            
+            int blogId = int.Parse(id);
+            using (IDbConnection db = new SqlConnection(_connectionString))
+            {
+                string query = "select * from tbl_blog where DeleteFlag = 0  and BlogId=@BlogId";
+                var item = db.Query<BlogDataModel>(query, new BlogDataModel
+                {
+                    BlogId = blogId
+                }).FirstOrDefault();
+                if (item is null)
+                {
+                    Console.WriteLine("No Data Found");
+                    return;
+                }
+
+
+            }
 
             using (IDbConnection db = new SqlConnection(_connectionString))
             {
@@ -131,7 +185,21 @@ namespace TTHDotNetCore.ConsoleApp
             string id = Console.ReadLine();
             int blogId = int.Parse(id);
 
+            using (IDbConnection db = new SqlConnection(_connectionString))
+            {
+                string query = "select * from tbl_blog where DeleteFlag = 0  and BlogId=@BlogId";
+                var item = db.Query<BlogDataModel>(query, new BlogDataModel
+                {
+                    BlogId = blogId
+                }).FirstOrDefault();
+                if (item is null)
+                {
+                    Console.WriteLine("No Data Found");
+                    return;
+                }
 
+
+            }
 
             using (IDbConnection db = new SqlConnection(_connectionString))
             {
