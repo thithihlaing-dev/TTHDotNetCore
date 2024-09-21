@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TTHDotNetCore.ConsoleApp.Models;
 
 namespace TTHDotNetCore.ConsoleApp
 {
@@ -19,6 +20,21 @@ namespace TTHDotNetCore.ConsoleApp
                 Console.WriteLine(item.BlogAuthor);
                 Console.WriteLine(item.BlogContent);
             }
+        }
+
+        public void Create(string title,string author,string content) { 
+            BlogDataModel blog = new BlogDataModel { 
+                BlogTitle = title,
+                BlogAuthor = author,
+                BlogContent = content
+            };
+            AppDbContext db = new AppDbContext();
+            db.Blogs.Add(blog);
+            var result =db.SaveChanges();
+            Console.WriteLine( result == 1 ? "Saving Successful" : "Saving Fail");
+
+
+
         }
     }
 }
