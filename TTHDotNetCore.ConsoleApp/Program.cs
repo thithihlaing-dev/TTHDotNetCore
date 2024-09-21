@@ -46,6 +46,8 @@ Console.WriteLine("Hello, World!");
 
 EFCoreExample eFCoreExample =new EFCoreExample();
 //eFCoreExample.Read();
-eFCoreExample.Create("EFcore Title", "EFcore Author", "EFcore Content");
+//eFCoreExample.Create("EFcore Title", "EFcore Author", "EFcore Content");
+eFCoreExample.Edit(1);
+eFCoreExample.Edit(18);
 
 Console.ReadKey();

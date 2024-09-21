@@ -33,7 +33,23 @@ namespace TTHDotNetCore.ConsoleApp
             var result =db.SaveChanges();
             Console.WriteLine( result == 1 ? "Saving Successful" : "Saving Fail");
 
+        }
 
+        public void Edit(int id)
+        {
+            AppDbContext db = new AppDbContext();
+            var item = db.Blogs.Where( x=> x.BlogId == id ).FirstOrDefault();
+
+            if (item == null)
+            {
+                Console.WriteLine("No Data Found");
+                return;
+            }
+
+            Console.WriteLine(item.BlogId);
+            Console.WriteLine(item.BlogTitle);
+            Console.WriteLine(item.BlogAuthor);
+            Console.WriteLine(item.BlogContent);
 
         }
     }
