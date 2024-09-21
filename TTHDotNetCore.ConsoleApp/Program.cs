@@ -47,7 +47,11 @@ Console.WriteLine("Hello, World!");
 EFCoreExample eFCoreExample =new EFCoreExample();
 //eFCoreExample.Read();
 //eFCoreExample.Create("EFcore Title", "EFcore Author", "EFcore Content");
-eFCoreExample.Edit(1);
-eFCoreExample.Edit(18);
+//eFCoreExample.Edit(1);
+//eFCoreExample.Edit(18);
+
+eFCoreExample.Update(1,"Update EFcore Title", "Update EFcore Author", "Update EFcore Content");
+eFCoreExample.Update(18,"Update EFcore Title", "Update EFcore Author", "Update EFcore Content");
+
 
 Console.ReadKey();
