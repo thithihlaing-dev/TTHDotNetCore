@@ -3,7 +3,7 @@ using System.Data;
 using System.Data.SqlClient;
 using TTHDotNetCore.ConsoleApp;
 
-//Console.WriteLine("Hello, World!");
+Console.WriteLine("Hello, World!");
 //Console.ReadLine();
 //Console.ReadKey();
 
@@ -44,6 +44,7 @@ using TTHDotNetCore.ConsoleApp;
 //dapperExample.LogicalDelete();
 //dapperExample.ManualDelete();
 
-
+EFCoreExample eFCoreExample =new EFCoreExample();
+eFCoreExample.Read();
 
 Console.ReadKey();

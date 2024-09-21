@@ -15,7 +15,7 @@ namespace TTHDotNetCore.ConsoleApp
         {
             if (!optionsBuilder.IsConfigured)
             {
-                String connectionString = "Data Source=.;Initial Catalog=DotNetTrainingBatch5;User ID=sa;Password=sasa@123";
+                String connectionString = "Data Source=.;Initial Catalog=DotNetTrainingBatch5;User ID=sa;Password=sasa@123;TrustServerCertificate=true";
                 optionsBuilder.UseSqlServer(connectionString);
             }
         }
