@@ -36,7 +36,7 @@ using TTHDotNetCore.ConsoleApp;
 //adoDotNetExample.ManualDelete();
 
 
-DapperExample dapperExample = new DapperExample();
+//DapperExample dapperExample = new DapperExample();
 //dapperExample.Create("Title", "Author", "Content");
 //dapperExample.Edit(1);
 //dapperExample.Edit(10);
