@@ -87,5 +87,42 @@ namespace TTHDotNetCore.ConsoleApp
             Console.WriteLine( result == 1 ? "Updating Successful" : "Updating Successful");
 
         }
+
+        public void LogicalDelete(int id)
+        {
+            AppDbContext db = new AppDbContext();
+            var item = db.Blogs
+                .AsNoTracking()
+                .FirstOrDefault(x => x.BlogId == id);
+
+            if (item == null)
+            {
+                Console.WriteLine("No Data Found");
+                return;
+            }
+
+            item.DeleteFlag = true;
+
+            db.Entry(item).State = EntityState.Modified;
+            var result = db.SaveChanges();
+
+            Console.WriteLine(result == 1 ? "Logical Deleting Successful" : "Logical Deleting Successful");
+
+        }
+
+        public void ManualDelete(int id) { 
+            AppDbContext db = new AppDbContext();
+            var item = db.Blogs .AsNoTracking().FirstOrDefault( x => x.BlogId == id );
+
+            if (item == null) {
+                Console.WriteLine("No Data Found");
+                return;                
+            }
+
+            db.Entry(item).State = EntityState.Deleted;
+            var result = db.SaveChanges();
+            Console.WriteLine(result == 1 ? "Delete Successful" : "Delete Successful");
+
+        }
     }
 }

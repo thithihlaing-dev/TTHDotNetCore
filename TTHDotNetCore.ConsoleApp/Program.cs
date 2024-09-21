@@ -50,8 +50,16 @@ EFCoreExample eFCoreExample =new EFCoreExample();
 //eFCoreExample.Edit(1);
 //eFCoreExample.Edit(18);
 
-eFCoreExample.Update(1,"Update EFcore Title", "Update EFcore Author", "Update EFcore Content");
-eFCoreExample.Update(18,"Update EFcore Title", "Update EFcore Author", "Update EFcore Content");
+//eFCoreExample.Update(1,"Update EFcore Title", "Update EFcore Author", "Update EFcore Content");
+//eFCoreExample.Update(18,"Update EFcore Title", "Update EFcore Author", "Update EFcore Content");
+
+
+//eFCoreExample.LogicalDelete(1);
+//eFCoreExample.LogicalDelete(19);
+
+
+//eFCoreExample.ManualDelete(1);
+//eFCoreExample.ManualDelete(20);
 
 
 Console.ReadKey();
