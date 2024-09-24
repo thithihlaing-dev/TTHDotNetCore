@@ -98,3 +98,8 @@ dotnet tool install --global dotnet-ef --version 7 (write in cmd)
 
 
 dotnet ef dbcontext scaffold "Server=.;Database=DotNetTrainingBatch5;User Id=sa;Password=sasa@123;TrustServerCertificate=True;" Microsoft.EntityFrameworkCore.SqlServer -o Models -c AppDbContext -f (wtite in vs cmd)
+
+API
+HttpMethod
+HttpStatusCode
+Request / Response
