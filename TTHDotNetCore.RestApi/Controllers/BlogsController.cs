@@ -1,5 +1,8 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using System.Reflection.Metadata;
+using TTHDotNetCore.Database.Models;
 
 namespace TTHDotNetCore.RestApi.Controllers
 {
@@ -7,33 +10,99 @@ namespace TTHDotNetCore.RestApi.Controllers
     [ApiController]
     public class BlogsController : ControllerBase
     {
+        private readonly AppDbContext _db = new AppDbContext();
+
         [HttpGet]
         public IActionResult GetBlogs()
         {
-            return Ok();
+            var lst = _db.TblBlogs.AsNoTracking().ToList();
+
+            return Ok(lst);
+        }
+
+        [HttpGet ("{id}")]
+        public IActionResult GetBlog(int id)
+        {
+            var item = _db.TblBlogs.AsNoTracking().FirstOrDefault(x => x.BlogId == id);
+            if (item is null)
+            {
+                return NotFound();
+            }
+            return Ok(item);
         }
 
         [HttpPost]
-        public IActionResult CreateBlogs()
+        public IActionResult CreateBlog(TblBlog blog)
         {
-            return Ok();
+            _db.TblBlogs.Add(blog);
+            _db.SaveChanges();
+
+            return Ok(blog);
         }
 
-        [HttpPut]
-        public IActionResult UpdateBlogs()
+        [HttpPut("{id}")]
+        public IActionResult UpdateBlogs(int id , TblBlog blog)
         {
-            return Ok();
+            var item = _db.TblBlogs.AsNoTracking().FirstOrDefault(x => x.BlogId == id);
+            if (item is null)
+            {
+                return NotFound();
+            }
+
+            item.BlogTitle = blog.BlogTitle;
+            item.BlogAuthor = blog.BlogAuthor;
+            item.BlogContent = blog.BlogContent;
+
+            _db.Entry(item).State = EntityState.Modified;
+            _db.SaveChanges();
+
+            return Ok(item);
+          
         }
 
-        [HttpPatch]
-        public IActionResult PatchBlogs()
+        [HttpPatch("{id}")]
+        public IActionResult PatchBlogs(int id , TblBlog blog)
         {
-            return Ok();
+            var item = _db.TblBlogs.AsNoTracking().FirstOrDefault(x => x.BlogId == id);
+            if (item is null)
+            {
+                return NotFound();
+            }
+
+            if (!string.IsNullOrEmpty(blog.BlogTitle))
+            {
+                item.BlogTitle = blog.BlogTitle;
+            }
+            if (!string.IsNullOrEmpty(blog.BlogAuthor))
+            {
+                item.BlogAuthor = blog.BlogAuthor;
+            }
+            if (!string.IsNullOrEmpty(blog.BlogContent))
+            {
+                item.BlogContent = blog.BlogContent;
+            }
+
+            _db.Entry(item).State = EntityState.Modified;
+            _db.SaveChanges();
+
+            return Ok(item);
         }
 
-        [HttpDelete]
-        public IActionResult DeleteBlogs()
+        [HttpDelete("{id}")]
+        public IActionResult DeleteBlogs(int id)
         {
+            var item = _db.TblBlogs.AsNoTracking().FirstOrDefault(x => x.BlogId == id);
+            if (item is null)
+            {
+                return NotFound();
+            }
+
+            //item.DeleteFlag = true;
+            //_db.Entry(item).State = EntityState.Modified;//DeleteFlag = 0 Logical Delete
+            _db.Entry(item).State = EntityState.Deleted; //Manual Delete
+
+            _db.SaveChanges();
+
             return Ok();
         }
 
