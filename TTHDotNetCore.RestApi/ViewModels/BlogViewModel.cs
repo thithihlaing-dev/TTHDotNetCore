@@ -10,7 +10,7 @@
              
         public string? Content { get; set; }
 
-        public int Deleteflag { get; set; }
+        public bool DeleteFlag { get; set; }
 
 
 
