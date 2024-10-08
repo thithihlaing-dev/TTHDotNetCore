@@ -22,11 +22,12 @@ namespace TTHDotNetCore.RestApi.Controllers
             SqlConnection connection = new SqlConnection(_connectionString);
             connection.Open();
             string query = @"SELECT [BlogId]
-      ,[BlogTitle]
-      ,[BlogAuthor]
-      ,[BlogContent]
-      ,[DeleteFlag]
-  FROM [dbo].[Tbl_Blog] where DeleteFlag = 0";
+                                    [BlogTitle]
+                                    [BlogAuthor]
+                                    [BlogContent]
+                                    [DeleteFlag]
+                              FROM [dbo].[Tbl_Blog]
+                              WHERE DeleteFlag = 0";
             SqlCommand cmd = new SqlCommand(query, connection);
             SqlDataReader reader = cmd.ExecuteReader();
 
@@ -66,15 +67,15 @@ namespace TTHDotNetCore.RestApi.Controllers
             connection.Open();
 
             string query = $@"INSERT INTO [dbo].[Tbl_Blog]
-           ([BlogTitle]
-           ,[BlogAuthor]
-           ,[BlogContent]
-           ,[DeleteFlag])
-     VALUES
-           (@BlogTitle
-            ,@BlogAuthor
-            ,@BlogContent
-           ,0)";
+                                                ([BlogTitle]
+                                                ,[BlogAuthor]
+                                                ,[BlogContent]
+                                                ,[DeleteFlag])
+                                           VALUES
+                                                 (@BlogTitle
+                                                    ,@BlogAuthor
+                                                    ,@BlogContent
+                                                    ,0)";
 
             SqlCommand cmd = new SqlCommand(query, connection);
             cmd.Parameters.AddWithValue("@BlogTitle",blog.Title);
@@ -97,12 +98,12 @@ namespace TTHDotNetCore.RestApi.Controllers
             SqlConnection connection = new SqlConnection(_connectionString);
             connection.Open();
             string query = @"SELECT [BlogId]
-      ,[BlogTitle]
-      ,[BlogAuthor]
-      ,[BlogContent]
-      ,[DeleteFlag]
-  FROM [dbo].[Tbl_Blog] 
-    WHERE BlogId = @BlogId";
+                                ,[BlogTitle]
+                                ,[BlogAuthor]
+                                ,[BlogContent]
+                                ,[DeleteFlag]
+                            FROM [dbo].[Tbl_Blog] 
+                            WHERE BlogId = @BlogId";
             
             SqlCommand cmd = new SqlCommand(query, connection);
 
@@ -139,11 +140,11 @@ namespace TTHDotNetCore.RestApi.Controllers
             SqlConnection connection = new SqlConnection(_connectionString);
             connection.Open();
             string query = $@"UPDATE [dbo].[Tbl_Blog]
-   SET [BlogTitle] = @BlogTitle
-      ,[BlogAuthor] = @BlogAuthor
-      ,[BlogContent] = @BlogContent
-      ,[DeleteFlag] = 0
- WHERE BlogId= @BlogId"; 
+                                    SET [BlogTitle] = @BlogTitle
+                                        ,[BlogAuthor] = @BlogAuthor
+                                        ,[BlogContent] = @BlogContent
+                                        ,[DeleteFlag] = 0
+                                    WHERE BlogId= @BlogId"; 
             SqlCommand cmd = new SqlCommand(query, connection);
             cmd.Parameters.AddWithValue("@BlogId", id);
             cmd.Parameters.AddWithValue("@BlogTitle", blog.Title);
@@ -209,6 +210,25 @@ namespace TTHDotNetCore.RestApi.Controllers
         
         }
 
+        [HttpDelete("{id}")]
+        public IActionResult DeleteBlog(int id, BlogViewModel blog)
+        {
+            SqlConnection connection = new SqlConnection(_connectionString);
+            connection.Open();
+            //string query = $@"UPDATE [dbo].[Tbl_Blog]
+            //                    SET [DeleteFlag] = 1
+            //                    WHERE BlogId= @BlogId";
+            string query = $@"DELETE FROM [dbo].[Tbl_Blog]
+                WHERE BlogId = @BlogId";
+            SqlCommand cmd = new SqlCommand(query, connection);
+            cmd.Parameters.AddWithValue("@BlogId", id);
+           
 
+            int restult = cmd.ExecuteNonQuery();
+            connection.Close();
+
+            return Ok(restult == 1 ? "Deleting Successful" : "Deleting Fail");
+
+        }
     }
 }
