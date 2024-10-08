@@ -107,5 +107,25 @@ namespace TTHDotNetCore.RestApi.Controllers
             }
 
         }
+
+        [HttpDelete("{id}")]
+        public IActionResult deleteBlog(int id, BlogViewModel blog)
+        {
+            using (IDbConnection db = new SqlConnection(_connectionString))
+            {
+                //string query = $@"UPDATE [dbo].[Tbl_Blog]
+                //    SET [DeleteFlag] = 1
+                //    WHERE BlogId= @Id";
+                string query = $@"DELETE FROM [dbo].[Tbl_Blog]
+                                         WHERE BlogId= @Id";
+                int result = db.Execute(query, new BlogViewModel
+                {
+                    Id = id,
+                   
+                });
+                return Ok(result == 1 ? "Deleting Successful." : "Deleting Fail");
+            }
+
+        }
     }
 }
