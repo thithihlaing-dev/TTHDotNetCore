@@ -127,11 +127,37 @@ namespace TTHDotNetCore.RestApi.Controllers
                 DeleteFlag = Convert.ToBoolean(dr["DeleteFlag"]),
             };
             connection.Close();
+
+           
             return Ok(item);
 
         }
 
-       
+        [HttpPut("{id}")]
+        public IActionResult UpdateBlog(int id, BlogViewModel blog)
+        {
+            SqlConnection connection = new SqlConnection(_connectionString);
+            connection.Open();
+            string query = $@"UPDATE [dbo].[Tbl_Blog]
+   SET [BlogTitle] = @BlogTitle
+      ,[BlogAuthor] = @BlogAuthor
+      ,[BlogContent] = @BlogContent
+      ,[DeleteFlag] = 0
+ WHERE BlogId= @BlogId"; 
+            SqlCommand cmd = new SqlCommand(query, connection);
+            cmd.Parameters.AddWithValue("@BlogId", id);
+            cmd.Parameters.AddWithValue("@BlogTitle", blog.Title);
+            cmd.Parameters.AddWithValue("@BlogAuthor", blog.Author);
+            cmd.Parameters.AddWithValue("@BlogContent", blog.Content);
+
+            int restult = cmd.ExecuteNonQuery();
+            connection.Close();
+
+            return Ok(restult == 1 ? "Updating Successful" : "Updating Fail");
+
+        }
+
+
         [HttpPatch("{id}")]
         public IActionResult PatchBlog(int id, BlogViewModel blog)
         {
@@ -182,5 +208,7 @@ namespace TTHDotNetCore.RestApi.Controllers
             return Ok(restult == 1 ? "Updating Successful" : "Updating Fail");
         
         }
+
+
     }
 }
