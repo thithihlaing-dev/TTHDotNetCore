@@ -12,7 +12,7 @@ namespace TTHDotNetCore.RestApi.Controllers
     public class BlogsDapperController : ControllerBase
     {
         private readonly string _connectionString = "Data Source=.;Initial Catalog=DotNetTrainingBatch5;User ID=sa;Password=sasa@123;TrustServerCertificate=True;";
-        
+
         [HttpGet]
         public IActionResult GetBlogs()
         {
@@ -28,13 +28,13 @@ namespace TTHDotNetCore.RestApi.Controllers
                 List<BlogViewModel> lst = db.Query<BlogViewModel>(query).ToList();
                 return Ok(lst);
             }
-           
+
         }
 
         [HttpGet("{id}")]
         public IActionResult GetBlog(int id)
         {
-            using(IDbConnection db= new SqlConnection(_connectionString))
+            using (IDbConnection db = new SqlConnection(_connectionString))
             {
                 string query = @"SELECT BlogId AS Id, 
                                         BlogTitle AS Title, 
@@ -82,6 +82,30 @@ namespace TTHDotNetCore.RestApi.Controllers
                 });
                 return Ok(result == 1 ? "Saving Successful" : "Saving Fail");
             }
+        }
+
+        [HttpPut("{id}")]
+        public IActionResult UpdateBlog(int id, BlogViewModel blog)
+        {
+            using (IDbConnection db = new SqlConnection(_connectionString))
+            {
+                string query = $@"UPDATE [dbo].[Tbl_Blog]
+                    SET [BlogTitle] = @Title
+                    ,[BlogAuthor] = @Author
+                    ,[BlogContent] = @Content
+                    ,[DeleteFlag] = 0
+                    WHERE BlogId= @Id";
+
+                int result = db.Execute(query, new BlogViewModel
+                {
+                    Id = id,
+                    Title = blog.Title,
+                    Author = blog.Author,
+                    Content = blog.Content,
+                });
+                return Ok(result == 1 ? "Updating Successful." : "Updating Fail");
+            }
+
         }
     }
 }
