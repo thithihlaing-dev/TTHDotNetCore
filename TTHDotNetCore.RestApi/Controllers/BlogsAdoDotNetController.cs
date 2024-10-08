@@ -1,6 +1,9 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Data.SqlClient;
+using System.Collections.Generic;
+using System.Data;
+using System.Data.Common;
 using TTHDotNetCore.RestApi.DataModels;
 using TTHDotNetCore.RestApi.ViewModels;
 
@@ -56,7 +59,79 @@ namespace TTHDotNetCore.RestApi.Controllers
             return Ok(lst);
         }
 
+        [HttpPost]
+        public IActionResult CreateBlog(BlogViewModel blog)
+        {
+            SqlConnection connection = new SqlConnection(_connectionString);
+            connection.Open();
 
+            string query = $@"INSERT INTO [dbo].[Tbl_Blog]
+           ([BlogTitle]
+           ,[BlogAuthor]
+           ,[BlogContent]
+           ,[DeleteFlag])
+     VALUES
+           (@BlogTitle
+            ,@BlogAuthor
+            ,@BlogContent
+           ,0)";
+
+            SqlCommand cmd = new SqlCommand(query, connection);
+            cmd.Parameters.AddWithValue("@BlogTitle",blog.Title);
+            cmd.Parameters.AddWithValue("@BlogAuthor",blog.Author);
+            cmd.Parameters.AddWithValue("@BlogContent",blog.Content);
+            int result = cmd.ExecuteNonQuery();
+
+            connection.Close();
+
+            string message = (result == 1 ? "Saving Successful" : "Saving Fail");
+        
+            return Ok(message);
+        }
+
+
+
+        [HttpGet("{id}")]
+        public IActionResult GetBlog(int id) { 
+
+            SqlConnection connection = new SqlConnection(_connectionString);
+            connection.Open();
+            string query = @"SELECT [BlogId]
+      ,[BlogTitle]
+      ,[BlogAuthor]
+      ,[BlogContent]
+      ,[DeleteFlag]
+  FROM [dbo].[Tbl_Blog] 
+    WHERE BlogId = @BlogId";
+            
+            SqlCommand cmd = new SqlCommand(query, connection);
+
+            cmd.Parameters.AddWithValue("@BlogId", id);
+            SqlDataAdapter adapter = new SqlDataAdapter(cmd);
+            DataTable dt = new DataTable();
+
+            adapter.Fill(dt);
+
+            if (dt.Rows.Count == 0)
+            {
+                return NotFound();
+
+            }
+            DataRow dr = dt.Rows[0];
+            var item = new BlogViewModel
+            {
+                Id = Convert.ToInt32(dr["BlogId"]),
+                Title = Convert.ToString(dr["BlogTitle"]),
+                Author = Convert.ToString(dr["BlogAuthor"]),
+                Content = Convert.ToString(dr["BlogContent"]),
+                DeleteFlag = Convert.ToBoolean(dr["DeleteFlag"]),
+            };
+            connection.Close();
+            return Ok(item);
+
+        }
+
+       
         [HttpPatch("{id}")]
         public IActionResult PatchBlog(int id, BlogViewModel blog)
         {
