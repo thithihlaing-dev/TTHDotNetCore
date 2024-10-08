@@ -56,6 +56,32 @@ namespace TTHDotNetCore.RestApi.Controllers
                 return Ok(item);
 
             }
+
+        }
+
+        [HttpPost]
+        public IActionResult CreateBlog(BlogViewModel blog)
+        {
+            using (IDbConnection db = new SqlConnection(_connectionString))
+            {
+                string query = $@"INSERT INTO [dbo].[Tbl_Blog]
+           ([BlogTitle]
+           ,[BlogAuthor]
+           ,[BlogContent]
+           ,[DeleteFlag])
+     VALUES
+           (@Title
+            ,@Author
+            ,@Content
+           ,0)";
+                int result = db.Execute(query, new BlogViewModel
+                {
+                    Title = blog.Title,
+                    Author = blog.Author,
+                    Content = blog.Content,
+                });
+                return Ok(result == 1 ? "Saving Successful" : "Saving Fail");
+            }
         }
     }
 }
