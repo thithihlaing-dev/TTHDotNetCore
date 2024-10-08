@@ -30,5 +30,32 @@ namespace TTHDotNetCore.RestApi.Controllers
             }
            
         }
+
+        [HttpGet("{id}")]
+        public IActionResult GetBlog(int id)
+        {
+            using(IDbConnection db= new SqlConnection(_connectionString))
+            {
+                string query = @"SELECT BlogId AS Id, 
+                                        BlogTitle AS Title, 
+                                        BlogAuthor AS Author, 
+                                        BlogContent AS Content, 
+                                        DeleteFlag 
+                                FROM tbl_blog 
+                                WHERE DeleteFlag = 0  
+                                AND BlogId=@Id";
+                var item = db.Query<BlogViewModel>(query, new BlogViewModel
+                {
+                    Id = id
+                }).FirstOrDefault();
+
+                if (item is null)
+                {
+                    return NotFound();
+                }
+                return Ok(item);
+
+            }
+        }
     }
 }
