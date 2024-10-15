@@ -169,3 +169,22 @@ Backend API
 data model (data access, database) 10 columns
 
 view model (frontend return data) 2 columns
+
+
+CREATE TABLE ToDoList (
+    TaskID INT PRIMARY KEY IDENTITY(1,1),  -- Unique task identifier
+    TaskTitle VARCHAR(255) NOT NULL,       -- Title of the task
+    TaskDescription TEXT,                  -- Detailed description of the task
+    CategoryID INT,                        -- Foreign key to Category table (optional)
+    PriorityLevel TINYINT CHECK (PriorityLevel BETWEEN 1 AND 5), -- Task priority (1 = Low, 5 = High)
+    Status VARCHAR(50) CHECK (Status IN ('Pending', 'In Progress', 'Completed', 'Overdue')),  -- Task status
+    DueDate DATE,                          -- Task due date
+    CreatedDate DATETIME DEFAULT GETDATE(),-- When the task was created
+    CompletedDate DATETIME,                -- When the task was marked as completed
+    FOREIGN KEY (CategoryID) REFERENCES TaskCategory(CategoryID) -- Optional category reference
+);
+
+CREATE TABLE TaskCategory (
+    CategoryID INT PRIMARY KEY IDENTITY(1,1), -- Unique identifier for each category
+    CategoryName VARCHAR(100) NOT NULL        -- Name of the category (e.g., Work, Personal)
+);

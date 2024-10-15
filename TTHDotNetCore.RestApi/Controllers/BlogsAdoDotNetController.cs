@@ -22,10 +22,10 @@ namespace TTHDotNetCore.RestApi.Controllers
             SqlConnection connection = new SqlConnection(_connectionString);
             connection.Open();
             string query = @"SELECT [BlogId]
-                                    [BlogTitle]
-                                    [BlogAuthor]
-                                    [BlogContent]
-                                    [DeleteFlag]
+                                    ,[BlogTitle]
+                                    ,[BlogAuthor]
+                                    ,[BlogContent]
+                                    ,[DeleteFlag]
                               FROM [dbo].[Tbl_Blog]
                               WHERE DeleteFlag = 0";
             SqlCommand cmd = new SqlCommand(query, connection);
@@ -103,7 +103,8 @@ namespace TTHDotNetCore.RestApi.Controllers
                                 ,[BlogContent]
                                 ,[DeleteFlag]
                             FROM [dbo].[Tbl_Blog] 
-                            WHERE BlogId = @BlogId";
+                            WHERE BlogId = @BlogId
+                            AND DeleteFlag=0";
             
             SqlCommand cmd = new SqlCommand(query, connection);
 
@@ -112,6 +113,7 @@ namespace TTHDotNetCore.RestApi.Controllers
             DataTable dt = new DataTable();
 
             adapter.Fill(dt);
+
 
             if (dt.Rows.Count == 0)
             {
