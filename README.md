@@ -176,8 +176,8 @@ CREATE TABLE ToDoList (
     TaskTitle VARCHAR(255) NOT NULL,       -- Title of the task
     TaskDescription TEXT,                  -- Detailed description of the task
     CategoryID INT,                        -- Foreign key to Category table (optional)
-    PriorityLevel TINYINT CHECK (PriorityLevel BETWEEN 1 AND 5), -- Task priority (1 = Low, 5 = High)
     Status VARCHAR(50) CHECK (Status IN ('Pending', 'In Progress', 'Completed', 'Overdue')),  -- Task status
+    PriorityLevel TINYINT CHECK (PriorityLevel BETWEEN 1 AND 5), -- Task priority (1 = Low, 5 = High)
     DueDate DATE,                          -- Task due date
     CreatedDate DATETIME DEFAULT GETDATE(),-- When the task was created
     CompletedDate DATETIME,                -- When the task was marked as completed
