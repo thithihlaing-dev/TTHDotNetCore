@@ -108,52 +108,7 @@ namespace TTHDotNetCore.RestApi.Controllers
 
         }
 
-        [HttpPatch("{id}")]
-        public IActionResult PatchBlog(int id, BlogViewModel blog)
-        {
-            string conditions = "";
-
-
-            
-            using (IDbConnection db = new SqlConnection(_connectionString))
-            {
-                if (!string.IsNullOrEmpty(blog.Title))
-                {
-                    conditions += " [BlogTitle] = @Title, ";
-                }
-                if (!string.IsNullOrEmpty(blog.Author))
-                {
-                    conditions += " [BlogAuthor] = @Author, ";
-
-                }
-                if (!string.IsNullOrEmpty(blog.Content))
-                {
-                    conditions += " [BlogContent] = @Content, ";
-                }
-
-                if (conditions.Length == 0)
-                {
-                    BadRequest("Invalid Parameter");
-                }
-
-                conditions = conditions.Substring(0, conditions.Length - 2);
-
-                string query = $@"UPDATE [dbo].[Tbl_Blog]
-                    SET {conditions}
-                    ,[DeleteFlag] = 0
-                    WHERE BlogId= @Id";
-
-                int result = db.Execute(query, new BlogViewModel
-                {
-                    Id = id,
-                    Title = blog.Title,
-                    Author = blog.Author,
-                    Content = blog.Content,
-                });
-                return Ok(result == 1 ? "Updating Successful." : "Updating Fail");
-            }
-
-        }
+       
         [HttpDelete("{id}")]
         public IActionResult deleteBlog(int id, BlogViewModel blog)
         {
