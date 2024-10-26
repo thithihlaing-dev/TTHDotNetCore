@@ -93,7 +93,7 @@ namespace TTHDotNetCore.RestApi.Controllers
                     SET [BlogTitle] = @Title
                     ,[BlogAuthor] = @Author
                     ,[BlogContent] = @Content
-                    ,[DeleteFlag] = 0
+                    ,[DeteteFlag] = 0
                     WHERE BlogId= @Id";
 
                 int result = db.Execute(query, new BlogViewModel
