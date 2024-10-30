@@ -44,7 +44,7 @@ Console.WriteLine("Hello, World!");
 //dapperExample.LogicalDelete();
 //dapperExample.ManualDelete();
 
-EFCoreExample eFCoreExample =new EFCoreExample();
+//EFCoreExample eFCoreExample =new EFCoreExample();
 //eFCoreExample.Read();
 //eFCoreExample.Create("EFcore Title", "EFcore Author", "EFcore Content");
 //eFCoreExample.Edit(1);
@@ -61,5 +61,7 @@ EFCoreExample eFCoreExample =new EFCoreExample();
 //eFCoreExample.ManualDelete(1);
 //eFCoreExample.ManualDelete(20);
 
+AdoDotNetExample2 adoDotNetExample2 = new AdoDotNetExample2();
+adoDotNetExample2.Read();
 
 Console.ReadKey();
