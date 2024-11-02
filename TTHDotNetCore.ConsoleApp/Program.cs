@@ -62,6 +62,6 @@ Console.WriteLine("Hello, World!");
 //eFCoreExample.ManualDelete(20);
 
 AdoDotNetExample2 adoDotNetExample2 = new AdoDotNetExample2();
-adoDotNetExample2.Read();
-
+//adoDotNetExample2.Read();
+adoDotNetExample2.Edit();
 Console.ReadKey();
