@@ -28,6 +28,37 @@ namespace TTHDotNetCore.ConsoleApp
             }
         }
 
+        public void Create() 
+        {
+            Console.WriteLine("Blog Title :");
+            string title = Console.ReadLine();
+
+            Console.WriteLine("Blog Author :");
+            string author = Console.ReadLine();
+
+            Console.WriteLine("Blog Content");
+            string content = Console.ReadLine();
+
+            string query = $@"INSERT INTO [dbo].[Tbl_Blog]
+           ([BlogTitle]
+           ,[BlogAuthor]
+           ,[BlogContent]
+           ,[DeleteFlag])
+     VALUES
+           (@BlogTitle
+            ,@BlogAuthor
+            ,@BlogContent
+           ,0)";
+
+            int result = _adoDotNetService.Execute(query,
+                new SqlParameterModel("@BlogTitle",title),
+                new SqlParameterModel("@BlogAuthor",author),
+                new SqlParameterModel("@BlogContent",content)
+                );
+
+            Console.WriteLine(result == 1 ? "Saving Successful." : "Saving Failed.");
+        }
+
         public void Edit() 
         {
             Console.Write("Blog Id: ");
@@ -58,6 +89,42 @@ namespace TTHDotNetCore.ConsoleApp
             Console.WriteLine(dr["BlogAuthor"]);
             Console.WriteLine(dr["BlogContent"]);
         }
+
+        public void Update()
+        {
+            Console.WriteLine("Blog ID :");
+            string id = Console.ReadLine();
+
+            Console.WriteLine("Blog Title :");
+            string title = Console.ReadLine();
+
+            Console.WriteLine("Blog Author :");
+            string author = Console.ReadLine();
+
+            Console.WriteLine("Blog Content");
+            string content = Console.ReadLine();
+
+            string query = $@"UPDATE [dbo].[Tbl_Blog]
+                                   SET [BlogTitle] = @BlogTitle
+                                      ,[BlogAuthor] = @BlogAuthor
+                                      ,[BlogContent] = @BlogContent
+                                      ,[DeleteFlag] = 0
+                                 WHERE BlogId= @BlogId";
+
+            int result = _adoDotNetService.Execute(query,
+                new SqlParameterModel("@BlogId", id),
+              new SqlParameterModel("@BlogTitle", title),
+              new SqlParameterModel("@BlogAuthor", author),
+              new SqlParameterModel("@BlogContent", content)
+              );
+
+            Console.WriteLine(result == 1 ? "Updating Successful." : "Updating Failed.");
+        }
+
+
     }
+
+
+
     
 }
