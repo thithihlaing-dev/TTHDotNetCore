@@ -65,5 +65,6 @@ AdoDotNetExample2 adoDotNetExample2 = new AdoDotNetExample2();
 //adoDotNetExample2.Read();
 //adoDotNetExample2.Edit();
 //adoDotNetExample2.Create();
-adoDotNetExample2.Update();
+//adoDotNetExample2.Update();
+adoDotNetExample2.Delete();
 Console.ReadKey();

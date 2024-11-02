@@ -121,10 +121,20 @@ namespace TTHDotNetCore.ConsoleApp
             Console.WriteLine(result == 1 ? "Updating Successful." : "Updating Failed.");
         }
 
+        public void Delete()
+        {
+            Console.WriteLine("Blog ID :");
+            string id = Console.ReadLine();            
 
-    }
+            string query = $@"UPDATE [dbo].[Tbl_Blog]
+                                   SET [DeleteFlag] = 1
+                                 WHERE BlogId= @BlogId";
 
+            int result = _adoDotNetService.Execute(query,
+                new SqlParameterModel("@BlogId", id)             
+              );
 
-
-    
+            Console.WriteLine(result == 1 ? "Deleting Successful." : "Deleting Failed.");
+        }
+    }    
 }
