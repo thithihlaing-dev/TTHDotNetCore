@@ -66,5 +66,17 @@ AdoDotNetExample2 adoDotNetExample2 = new AdoDotNetExample2();
 //adoDotNetExample2.Edit();
 //adoDotNetExample2.Create();
 //adoDotNetExample2.Update();
-adoDotNetExample2.Delete();
+//adoDotNetExample2.Delete();
+
+DapperExample2 dapperExample2 = new DapperExample2();
+//dapperExample2.Read();
+//dapperExample2.Create("Title", "Author", "Content");
+//dapperExample2.Edit(2);
+//dapperExample2.Edit(61);
+//dapperExample2.Update(1,"Title", "Author", "Content");
+//dapperExample2.Update(41, "Title", "Author", "Content");
+
+dapperExample2.Delete(47);
+dapperExample2.Delete(82);
+
 Console.ReadKey();
