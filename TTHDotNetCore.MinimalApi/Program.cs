@@ -1,8 +1,3 @@
-using Microsoft.AspNetCore.Builder;
-using Microsoft.EntityFrameworkCore;
-using TTHDotNetCore.Database.Models;
-using TTHDotNetCore.MinimalApi.Blog;
-
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
