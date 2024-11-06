@@ -28,6 +28,9 @@ var blog = new BlogModel
 string jsonStr2 = """{"Id":1,"Title":"Test Title","Author":"Test Author","Content":"Test Content"}""";
 var blog2 = JsonConvert.DeserializeObject<BlogModel>(jsonStr2);
 
+//System.Text.Json.JsonSerializer.Serialize(blog);
+//System.Text.Json.JsonSerializer.Deserialize<BlogModel>(jsonStr2);
+
 Console.WriteLine(blog2.Title);
 
 Console.ReadLine();
