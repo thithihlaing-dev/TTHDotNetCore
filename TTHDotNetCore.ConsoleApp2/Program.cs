@@ -21,10 +21,17 @@ var blog = new BlogModel
 
 //string jsonStr = JsonConvert.SerializeObject(blog , Formatting.Indented); // C# to JSON Formt type
 
-string jsonStr = blog.ToJson();
+//string jsonStr = blog.ToJson();
 
-Console.WriteLine(jsonStr); 
+//Console.WriteLine(jsonStr);
+
+string jsonStr2 = """{"Id":1,"Title":"Test Title","Author":"Test Author","Content":"Test Content"}""";
+var blog2 = JsonConvert.DeserializeObject<BlogModel>(jsonStr2);
+
+Console.WriteLine(blog2.Title);
+
 Console.ReadLine();
+
 public class BlogModel
 {
     public int Id { get; set; }
