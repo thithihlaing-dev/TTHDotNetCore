@@ -44,7 +44,26 @@ app.MapGet("/birds", () =>
     var jsonStr = File.ReadAllText(folderPath);
     var result = JsonConvert.DeserializeObject<BirdResponseModel>(jsonStr)!;
     return Results.Ok(result.Tbl_Bird);
-});
+})
+.WithName("GetBirds")
+.WithOpenApi();
+
+
+app.MapGet("/birds/{id}", (int id) =>
+{
+    string folderPath = "Data/Birds.json";
+    var jsonStr = File.ReadAllText(folderPath);
+    var result = JsonConvert.DeserializeObject<BirdResponseModel>(jsonStr)!;
+
+    var item = result.Tbl_Bird.FirstOrDefault(x => x.Id == id);
+
+    if (item is null) return Results.BadRequest("No data Found.");
+
+    return Results.Ok(item);
+    
+})
+.WithName("GetBird")
+.WithOpenApi();
 
 
 
