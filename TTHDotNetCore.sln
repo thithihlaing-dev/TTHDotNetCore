@@ -16,7 +16,14 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TTHDotNetCore.ConsoleApp2",
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TTHDotNetCore.RestApi", "TTHDotNetCore.RestApi\TTHDotNetCore.RestApi.csproj", "{C8729BAB-14A2-459F-B3FE-C69D202465E2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TTHDotNetCore.Shared", "TTHDotNetCore.Shared\TTHDotNetCore.Shared.csproj", "{244A3116-762A-4C61-B551-09D31FCE31B5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TTHDotNetCore.Shared", "TTHDotNetCore.Shared\TTHDotNetCore.Shared.csproj", "{244A3116-762A-4C61-B551-09D31FCE31B5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TTHDotNetCore.MinimalApi", "TTHDotNetCore.MinimalApi\TTHDotNetCore.MinimalApi.csproj", "{FA9587A4-D4C2-491C-9D6A-9D15F863DA8B}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{A05C7277-5AF9-40E7-9D4C-33F8655817A8}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -44,6 +51,10 @@ Global
 		{244A3116-762A-4C61-B551-09D31FCE31B5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{244A3116-762A-4C61-B551-09D31FCE31B5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{244A3116-762A-4C61-B551-09D31FCE31B5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FA9587A4-D4C2-491C-9D6A-9D15F863DA8B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FA9587A4-D4C2-491C-9D6A-9D15F863DA8B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FA9587A4-D4C2-491C-9D6A-9D15F863DA8B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FA9587A4-D4C2-491C-9D6A-9D15F863DA8B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
