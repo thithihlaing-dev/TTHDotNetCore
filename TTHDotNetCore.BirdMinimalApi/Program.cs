@@ -1,4 +1,6 @@
 using Newtonsoft.Json;
+using System;
+using System.Reflection.Metadata;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -66,6 +68,72 @@ app.MapGet("/birds/{id}", (int id) =>
 .WithOpenApi();
 
 
+app.MapPost("/birds", (BirdModel bird) =>
+{
+    string folderPath = "Data/Birds.json";
+    var jsonStr = File.ReadAllText(folderPath);
+    var result = JsonConvert.DeserializeObject<BirdResponseModel>(jsonStr)!;
+    var birdList = result.Tbl_Bird?.ToList() ?? new List<BirdModel>();
+
+    if (bird.Id == 0)
+    {
+        bird.Id = birdList.Any() ? birdList.Max(bird => bird.Id) + 1 : 1;
+    }
+    birdList.Add(bird);
+
+    if (birdList is null) return Results.BadRequest("No data Found.");
+
+    return Results.Ok(birdList);
+})
+.WithName("CreateBird")
+.WithOpenApi();
+
+app.MapPut("/birds/{id}" , (int id , BirdModel bird) =>
+{
+    string folderPath = "Data/Birds.json";
+    var jsonStr = File.ReadAllText(folderPath);
+    var result = JsonConvert.DeserializeObject<BirdResponseModel>(jsonStr);
+
+    var item = result.Tbl_Bird.FirstOrDefault(x => x.Id == id);
+    if (item is null) return Results.BadRequest("No data Found.");
+
+    item.Id = id;
+    item.BirdEnglishName = bird.BirdEnglishName;
+    item.BirdMyanmarName = bird.BirdMyanmarName;
+    item.Description = bird.Description;
+    item.ImagePath = bird.ImagePath;
+
+  
+
+    return Results.Ok(result);
+
+
+})
+.WithName("UpdateBird")
+.WithOpenApi();
+
+
+app.MapDelete("/birds/{id}", (int id) =>
+{
+    string folderPath = "Data/Birds.json";
+    var jsonStr = File.ReadAllText(folderPath);
+    var result = JsonConvert.DeserializeObject<BirdResponseModel>(jsonStr);
+
+    var item = result.Tbl_Bird.FirstOrDefault(x => x.Id == id);
+    if (item is null) return Results.BadRequest("No data Found.");
+
+    //result.Tbl_Bird = result.Tbl_Bird.Where((bird, i) => i != id+1 ).ToArray();
+
+    var index = Array.FindIndex(result.Tbl_Bird, x => x.Id == id);
+   
+    result.Tbl_Bird = result.Tbl_Bird.Where((bird, i) => i != index).ToArray();
+
+    return Results.Ok(result);
+
+
+})
+.WithName("DeleteBird")
+.WithOpenApi();
 
 app.Run();
 
