@@ -46,7 +46,6 @@ public static class  BirdEndpoints
             }
             birdList.Add(bird);
 
-            if (birdList is null) return Results.BadRequest("No data Found.");
 
             return Results.Ok(birdList);
         })
