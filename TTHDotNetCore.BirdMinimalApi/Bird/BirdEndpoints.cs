@@ -23,9 +23,8 @@ public static class  BirdEndpoints
             var result = JsonConvert.DeserializeObject<BirdResponseModel>(jsonStr)!;
 
             var item = result.Tbl_Bird.FirstOrDefault(x => x.Id == id);
-
-            if (item is null) return Results.BadRequest("No data Found.");
-
+            if (item is null) return Results.BadRequest("No data Found.");                   
+            
             return Results.Ok(item);
 
         })
@@ -38,16 +37,17 @@ public static class  BirdEndpoints
             string folderPath = "Data/Birds.json";
             var jsonStr = File.ReadAllText(folderPath);
             var result = JsonConvert.DeserializeObject<BirdResponseModel>(jsonStr)!;
-            var birdList = result.Tbl_Bird?.ToList() ?? new List<BirdModel>();
 
             if (bird.Id == 0)
             {
-                bird.Id = birdList.Any() ? birdList.Max(bird => bird.Id) + 1 : 1;
+                bird.Id = result.Tbl_Bird.Count != 0 ? result.Tbl_Bird.Max(bird => bird.Id) + 1 : 1;
             }
-            birdList.Add(bird);
+            result.Tbl_Bird.Add(bird);
 
+            var jsonStrToWrite = JsonConvert.SerializeObject(result);
+            File.WriteAllText(folderPath, jsonStrToWrite);
 
-            return Results.Ok(birdList);
+            return Results.Ok(result);
         })
         .WithName("CreateBird")
         .WithOpenApi();
@@ -60,13 +60,22 @@ public static class  BirdEndpoints
 
             var item = result.Tbl_Bird.FirstOrDefault(x => x.Id == id);
             if (item is null) return Results.BadRequest("No data Found.");
+          
 
-            item.Id = id;
-            item.BirdEnglishName = bird.BirdEnglishName;
-            item.BirdMyanmarName = bird.BirdMyanmarName;
-            item.Description = bird.Description;
-            item.ImagePath = bird.ImagePath;
-
+            var index = result.Tbl_Bird.FindIndex(x => x.Id == id);
+            if (index != -1)
+            {
+                result.Tbl_Bird[index] = new BirdModel
+                {
+                    Id = id,
+                    BirdEnglishName = bird.BirdEnglishName,
+                    BirdMyanmarName = bird.BirdMyanmarName,
+                    Description = bird.Description,
+                    ImagePath = bird.ImagePath
+                };
+            }
+            var jsonStrToWrite = JsonConvert.SerializeObject(result);
+            File.WriteAllText(folderPath, jsonStrToWrite);
 
 
             return Results.Ok(result);
@@ -85,15 +94,13 @@ public static class  BirdEndpoints
 
             var item = result.Tbl_Bird.FirstOrDefault(x => x.Id == id);
             if (item is null) return Results.BadRequest("No data Found.");
+            
+            result.Tbl_Bird.Remove(item);
 
-            //result.Tbl_Bird = result.Tbl_Bird.Where((bird, i) => i != id+1 ).ToArray();
-
-            var index = Array.FindIndex(result.Tbl_Bird, x => x.Id == id);
-
-            result.Tbl_Bird = result.Tbl_Bird.Where((bird, i) => i != index).ToArray();
+            var jsonStrToWrite = JsonConvert.SerializeObject(result);
+            File.WriteAllText(folderPath, jsonStrToWrite);
 
             return Results.Ok(result);
-
 
         })
         .WithName("DeleteBird")
@@ -105,12 +112,13 @@ public static class  BirdEndpoints
 
 
 
-}
+    }
 
     public class BirdResponseModel
     {
-        public BirdModel[] Tbl_Bird { get; set; }
+        public List<BirdModel> Tbl_Bird { get; set; }
     }
+
 
     public class BirdModel
     {
