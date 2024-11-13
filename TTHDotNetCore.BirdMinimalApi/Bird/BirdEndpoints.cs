@@ -59,8 +59,7 @@ public static class  BirdEndpoints
             var result = JsonConvert.DeserializeObject<BirdResponseModel>(jsonStr);
 
             var item = result.Tbl_Bird.FirstOrDefault(x => x.Id == id);
-            if (item is null) return Results.BadRequest("No data Found.");
-          
+            if (item is null) return Results.BadRequest("No data Found.");          
 
             var index = result.Tbl_Bird.FindIndex(x => x.Id == id);
             if (index != -1)
@@ -74,13 +73,11 @@ public static class  BirdEndpoints
                     ImagePath = bird.ImagePath
                 };
             }
+
             var jsonStrToWrite = JsonConvert.SerializeObject(result);
             File.WriteAllText(folderPath, jsonStrToWrite);
 
-
             return Results.Ok(result);
-
-
         })
         .WithName("UpdateBird")
         .WithOpenApi();
@@ -93,24 +90,16 @@ public static class  BirdEndpoints
             var result = JsonConvert.DeserializeObject<BirdResponseModel>(jsonStr);
 
             var item = result.Tbl_Bird.FirstOrDefault(x => x.Id == id);
-            if (item is null) return Results.BadRequest("No data Found.");
-            
+            if (item is null) return Results.BadRequest("No data Found.");            
             result.Tbl_Bird.Remove(item);
 
             var jsonStrToWrite = JsonConvert.SerializeObject(result);
             File.WriteAllText(folderPath, jsonStrToWrite);
 
             return Results.Ok(result);
-
         })
         .WithName("DeleteBird")
         .WithOpenApi();
-
-
-
-
-
-
 
     }
 

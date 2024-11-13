@@ -16,6 +16,8 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
+
+
 //var summaries = new[]
 //{
 //    "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
@@ -100,7 +102,8 @@ app.UseHttpsRedirection();
 //BlogEndPoint.Test("i");
 //"i".Test();
 
-app.UseBlogEndpoint();
+//app.UseBlogEndpoint();
+app.UseBlogServiceEndpoint();
 app.Run();
 
 //internal record WeatherForecast(DateOnly Date, int TemperatureC, string? Summary)
