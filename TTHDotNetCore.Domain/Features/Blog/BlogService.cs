@@ -8,6 +8,7 @@ using TTHDotNetCore.Database.Models;
 
 namespace TTHDotNetCore.Domain.Features.Blog
 {
+    // Business Logic + DataAccess
     public class BlogService
     {
         private readonly AppDbContext _db = new AppDbContext();

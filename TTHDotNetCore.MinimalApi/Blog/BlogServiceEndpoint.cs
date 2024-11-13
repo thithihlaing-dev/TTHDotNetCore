@@ -9,6 +9,7 @@ public static class BlogServiceEndpoint
     //    return i.ToString();
     //}
 
+    // Presentation Layer
     public static void UseBlogServiceEndpoint(this IEndpointRouteBuilder app )
     {
         app.MapGet("/blogs", () =>

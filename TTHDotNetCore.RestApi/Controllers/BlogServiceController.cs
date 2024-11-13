@@ -5,6 +5,7 @@ using TTHDotNetCore.Domain.Features.Blog;
 
 namespace TTHDotNetCore.RestApi.Controllers
 {
+    // Presentation Layer
     [Route("api/[controller]")]
     [ApiController]
     public class BlogServiceController : ControllerBase
