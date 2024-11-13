@@ -188,3 +188,82 @@ CREATE TABLE TaskCategory (
     CategoryID INT PRIMARY KEY IDENTITY(1,1), -- Unique identifier for each category
     CategoryName VARCHAR(100) NOT NULL        -- Name of the category (e.g., Work, Personal)
 );
+
+
+---------------------------------------------------------------------
+
+mssql basic
+
+C# basic
+
+console app
+
+ado.net
+
+dapper
+
+efcore
+
+efcore database first
+
+northwind database
+
+asp.net core web api
+
+minimal api / [ado.net / dapper => custom service]
+
+.net 6 .net 7
+
+.net core 3.1
+
+--------------------------------------
+
+File.json
+
+File.json => Read => Convert Object [] => Insert => Json => Write
+
+--------------------------------------
+
+### Kpay
+Mobile No
+
+Me - Another One
+
+Id FullName MobileNo Balance Pin => 000000
+
+Bank => Deposit / Withdraw
+
+### Deposit
+Deposit API => MobileNo, Balance (+) => 1000 + (-1000)
+
+### Withdraw
+Withdraw API => MobileNo, Balance (+) => 1000 - (-1000) at least 10,000 MMK
+
+### Transfer
+Transfer API =>
+
+FromMobileNo 
+ToMobileNo 
+Amount 
+Pin 
+Notes
+
+- FromMobile check
+- ToMobileNo check
+- FromMobileNo != ToMobileNo
+- Pin ==
+- Balance
+- FromMobileNo Balance -
+- ToMobileNo Balance +
+- Message (Complete)
+- Transaction History
+
+- Balance
+
+- Create Wallet User
+- Login
+- Change Pin
+- Phone No Change
+- Forget Password
+- Reset Password
+- First Time Login
