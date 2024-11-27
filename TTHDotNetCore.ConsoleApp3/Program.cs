@@ -1,14 +1,11 @@
 ﻿// See https://aka.ms/new-console-template for more information
+using TTHDotNetCore.ConsoleApp3;
+
 Console.WriteLine("Hello, World!");
 
-HttpClient client = new HttpClient();
-var response = await client.GetAsync("https://jsonplaceholder.typicode.com/posts");
 
-if (response.IsSuccessStatusCode) 
-{
-    var jsonStr = await response.Content.ReadAsStringAsync();
-    Console.WriteLine("hello1");
-    Console.WriteLine(jsonStr);
-    Console.WriteLine("hello2");
+HttpClientExample example = new HttpClientExample();
+//await example.ReadAsync();
+await example.Edit(1);
+await example.Edit(110);
 
-}
