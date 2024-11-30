@@ -12,6 +12,14 @@ HttpClientExample httpClientExample = new HttpClientExample();
 
 //await httpClientExample.Update(100, "title", "body",10);
 
-await httpClientExample.Delete(1);
+//await httpClientExample.Delete(1);
+
+
+RestClientExample restClientExample = new RestClientExample();
+//restClientExample.Read();
+restClientExample.Edit(1);
+
+Console.WriteLine("Hello");
+
 
 
