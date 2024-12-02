@@ -28,7 +28,85 @@ namespace TTHDotNetCore.ConsoleApp3
             }
         }
 
-      
 
+        public async Task Edit(int id)
+        {
+            RestRequest request = new RestRequest($"{_postEndPoint}/{id}", Method.Get);
+            var response = await _client.ExecuteAsync(request);
+
+            if (response.StatusCode == System.Net.HttpStatusCode.NotFound)
+            {
+                Console.WriteLine("No data found.");
+                return;
+            }
+
+            if (response.IsSuccessStatusCode)
+            {
+                string jsonStr = response.Content!;
+                Console.WriteLine(jsonStr);
+            }
+
+        }
+        public async Task Create(string title, string body, int userId)
+        {
+            PostModel requestModel = new PostModel()
+            {
+                body = body,
+                title = title,
+                userId = userId
+            }; 
+
+            RestRequest request = new RestRequest(_postEndPoint, Method.Post);
+            request.AddJsonBody(requestModel);
+
+            var response = await _client.ExecuteAsync(request);
+            if (response.IsSuccessStatusCode)
+            {
+                Console.WriteLine(response.Content!);
+            }
+
+        }
+        public async Task Update(int id, string title, string body, int userId)
+        {
+            PostModel requestModel = new PostModel()
+            {
+                id = id,
+                body = body,
+                title = title,
+                userId = userId
+            }; 
+
+            RestRequest request = new RestRequest(_postEndPoint, Method.Patch);
+            request.AddJsonBody(requestModel);
+
+            var response = await _client.ExecuteAsync(request);
+            if (response.IsSuccessStatusCode)
+            {
+                Console.WriteLine(response.Content!);
+            }
+        }
+        public async Task Delete(int id)
+        {
+            RestRequest request = new RestRequest($"{_postEndPoint}/{id}", Method.Delete);
+
+            var response = await _client.ExecuteAsync(request);
+            if (response.StatusCode == System.Net.HttpStatusCode.NotFound)
+            {
+                Console.WriteLine("No data found.");
+                return;
+            }
+
+            if (response.IsSuccessStatusCode)
+            {
+                string jsonStr = response.Content!;
+                Console.WriteLine(jsonStr);
+            }
+
+        }
     }
 }
+
+
+      
+
+    
