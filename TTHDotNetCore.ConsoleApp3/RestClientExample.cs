@@ -76,7 +76,7 @@ namespace TTHDotNetCore.ConsoleApp3
                 userId = userId
             }; 
 
-            RestRequest request = new RestRequest(_postEndPoint, Method.Patch);
+            RestRequest request = new RestRequest($"{_postEndPoint}/{id}", Method.Patch);
             request.AddJsonBody(requestModel);
 
             var response = await _client.ExecuteAsync(request);
@@ -102,6 +102,16 @@ namespace TTHDotNetCore.ConsoleApp3
                 Console.WriteLine(jsonStr);
             }
 
+        }
+
+       
+
+        public class PostModel
+        {
+            public int userId { get; set; }
+            public int id { get; set; }
+            public string title { get; set; }
+            public string body { get; set; }
         }
     }
 }
