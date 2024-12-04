@@ -4,7 +4,7 @@ using TTHDotNetCore.ConsoleApp3;
 Console.WriteLine("Hello, World!");
 
 
-HttpClientExample httpClientExample = new HttpClientExample();
+//HttpClientExample httpClientExample = new HttpClientExample();
 //await httpClientExample.ReadAsync();
 //await httpClientExample.Edit(1);
 //await httpClientExample.Edit(110);
@@ -15,14 +15,21 @@ HttpClientExample httpClientExample = new HttpClientExample();
 //await httpClientExample.Delete(1);
 
 
-RestClientExample restClientExample = new RestClientExample();
+//RestClientExample restClientExample = new RestClientExample();
 //await restClientExample.Read();
 //await restClientExample.Edit(1);
 //await restClientExample.Edit(110);
 //await restClientExample.Create("title", "body", 1);
 
-await restClientExample.Update(1, "title", "body", 1);
+//await restClientExample.Update(1, "title", "body", 1);
 //await restClientExample.Delete(1);
+
+
+Console.WriteLine("Waiting for api....");
+Console.ReadLine();
+
+RefitExample refitExample = new RefitExample();
+await refitExample.Run();
 
 Console.WriteLine("Hello");
 
