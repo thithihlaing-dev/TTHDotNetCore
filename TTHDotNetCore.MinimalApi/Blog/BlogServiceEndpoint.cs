@@ -1,4 +1,6 @@
-﻿using TTHDotNetCore.Domain.Features.Blog;
+﻿using Microsoft.AspNetCore.Mvc;
+using System.Net;
+using TTHDotNetCore.Domain.Features.Blog;
 
 namespace TTHDotNetCore.MinimalApi.Blog;
 
@@ -12,9 +14,8 @@ public static class BlogServiceEndpoint
     // Presentation Layer
     public static void UseBlogServiceEndpoint(this IEndpointRouteBuilder app )
     {
-        app.MapGet("/blogs", () =>
+        app.MapGet("/blogs", ([FromServices] BlogService service ) =>
         {
-            BlogService service = new BlogService();
             var lst = service.GetBlogs();
             
             return Results.Ok(lst);
@@ -22,9 +23,8 @@ public static class BlogServiceEndpoint
         .WithName("GetBlogs")
         .WithOpenApi();
 
-        app.MapGet("/blogs/{id}" , (int id) =>
+        app.MapGet("/blogs/{id}" , ([FromServices] BlogService service,int id) =>
         {
-            BlogService service = new BlogService();
             var item = service.GetBlog(id);
             if ( item is null)
             {
@@ -35,19 +35,17 @@ public static class BlogServiceEndpoint
         .WithName("GetBlog")
         .WithOpenApi();
 
-        app.MapPost("/blog", (TblBlog blog) =>
+        app.MapPost("/blog", ([FromServices] BlogService service,TblBlog blog) =>
         {
-            BlogService service = new BlogService();
             var model = service.CreateBlog(blog);            
             return Results.Ok(model);
         })
         .WithName("CreateBlog")
         .WithOpenApi();
 
-        app.MapPut("/blogs/{id}", (int id, TblBlog blog) =>
+        app.MapPut("/blogs/{id}", ([FromServices] BlogService service,int id, TblBlog blog) =>
         {
-            BlogService service = new BlogService();
-            
+           
             var item = service.UpdateBlog(id,blog);
             if (item is null)
             {
@@ -58,9 +56,8 @@ public static class BlogServiceEndpoint
         .WithName("UpdateBlog")
         .WithOpenApi();
 
-        app.MapDelete("/blogs/{id}", (int id) =>
+        app.MapDelete("/blogs/{id}", ([FromServices] BlogService service,int id) =>
         {
-            BlogService service = new BlogService();
             var item = service.DeleteBlog(id);
             if (item is false)
             {
