@@ -1,19 +1,13 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using TTHDotNetCore.Database.Models;
 
 namespace TTHDotNetCore.Domain.Features.Blog
 {
-    // Business Logic + DataAccess
-    public class BlogService : IBlogService
+    public class BlogV2Service : IBlogService
     {
         private readonly AppDbContext _db;
 
-        public BlogService(AppDbContext db)
+        public BlogV2Service(AppDbContext db)
         {
             _db = db;
         }

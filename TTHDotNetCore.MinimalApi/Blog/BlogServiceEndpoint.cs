@@ -14,7 +14,7 @@ public static class BlogServiceEndpoint
     // Presentation Layer
     public static void UseBlogServiceEndpoint(this IEndpointRouteBuilder app )
     {
-        app.MapGet("/blogs", ([FromServices] BlogService service ) =>
+        app.MapGet("/blogs", ([FromServices] IBlogService service ) =>
         {
             var lst = service.GetBlogs();
             
@@ -23,7 +23,7 @@ public static class BlogServiceEndpoint
         .WithName("GetBlogs")
         .WithOpenApi();
 
-        app.MapGet("/blogs/{id}" , ([FromServices] BlogService service,int id) =>
+        app.MapGet("/blogs/{id}" , ([FromServices] IBlogService service,int id) =>
         {
             var item = service.GetBlog(id);
             if ( item is null)
@@ -35,7 +35,7 @@ public static class BlogServiceEndpoint
         .WithName("GetBlog")
         .WithOpenApi();
 
-        app.MapPost("/blog", ([FromServices] BlogService service,TblBlog blog) =>
+        app.MapPost("/blog", ([FromServices] IBlogService service,TblBlog blog) =>
         {
             var model = service.CreateBlog(blog);            
             return Results.Ok(model);
@@ -43,7 +43,7 @@ public static class BlogServiceEndpoint
         .WithName("CreateBlog")
         .WithOpenApi();
 
-        app.MapPut("/blogs/{id}", ([FromServices] BlogService service,int id, TblBlog blog) =>
+        app.MapPut("/blogs/{id}", ([FromServices] IBlogService service,int id, TblBlog blog) =>
         {
            
             var item = service.UpdateBlog(id,blog);
@@ -56,7 +56,7 @@ public static class BlogServiceEndpoint
         .WithName("UpdateBlog")
         .WithOpenApi();
 
-        app.MapDelete("/blogs/{id}", ([FromServices] BlogService service,int id) =>
+        app.MapDelete("/blogs/{id}", ([FromServices] IBlogService service,int id) =>
         {
             var item = service.DeleteBlog(id);
             if (item is false)
